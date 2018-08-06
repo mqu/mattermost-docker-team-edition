@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+
+  db:
+    # database with mariadb
+    image: mariadb
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=mattermost
+      - MYSQL_USER=mattermost
+      - MYSQL_PASSWORD=mattermost
+    volumes:
+       - ./volumes/db/var/lib/mariadb/data:/var/lib/mysql
+       - ./volumes/srv:/srv
+       - /etc/localtime:/etc/localtime:ro
+    expose:
+      - 3306
+
+  app:
+    image: mqu31/mattermost-docker-team-edition
+    depends_on: 
+    - db
+    restart: unless-stopped
+    volumes:
+      - ./volumes/app/mattermost/config:/mattermost/config:rw
+      - ./volumes/app/mattermost/data:/mattermost/data:rw
+      - ./volumes/app/mattermost/logs:/mattermost/logs:rw
+      - ./volumes/srv:/srv
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+     - "8040:8000"
