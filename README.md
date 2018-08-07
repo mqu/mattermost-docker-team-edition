@@ -1,3 +1,3 @@
 # mattermost-docker-team-edition
 
-test
+test ...
