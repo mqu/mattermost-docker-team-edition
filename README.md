@@ -1,3 +1,3 @@
 # mattermost-docker-team-edition
 
-test ...
+This is repository to build Docker container for Mattermost Team Edition.
